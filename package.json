@@ -4,7 +4,9 @@
   "description": "Encrypt/Decrypt URL in you application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "clean": "rm -rf node_modules && npm i --verbose"
   },
   "repository": {
     "type": "git",
