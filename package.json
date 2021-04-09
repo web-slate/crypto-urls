@@ -1,0 +1,23 @@
+{
+  "name": "crypto-urls",
+  "version": "1.0.0",
+  "description": "Encrypt/Decrypt URL in you application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shangan23/crypto-urls.git"
+  },
+  "keywords": [
+    "encrypt",
+    "url"
+  ],
+  "author": "Shankar Ganesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shangan23/crypto-urls/issues"
+  },
+  "homepage": "https://github.com/shangan23/crypto-urls#readme"
+}
