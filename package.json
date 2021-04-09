@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/shangan23/crypto-urls/issues"
   },
-  "homepage": "https://github.com/shangan23/crypto-urls#readme"
+  "homepage": "https://github.com/shangan23/crypto-urls#readme",
+  "devDependencies": {
+    "query-string": "^7.0.0"
+  }
 }
