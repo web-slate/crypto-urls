@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/shangan23/crypto-urls#readme",
   "devDependencies": {
-    "query-string": "^7.0.0"
+    "query-string": "^7.0.0",
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.13",
+    "@babel/preset-env": "^7.13.12"
   }
 }
