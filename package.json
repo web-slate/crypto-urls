@@ -2,7 +2,8 @@
   "name": "crypto-urls",
   "version": "1.0.0",
   "description": "Encrypt/Decrypt URL in you application",
-  "main": "index.js",
+  "main": "dist/crypto-urls.cjs.js",
+  "module": "dist/crypto-urls.esm.js",
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
