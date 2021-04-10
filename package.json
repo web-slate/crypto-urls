@@ -5,6 +5,7 @@
   "main": "dist/crypto-urls.cjs.js",
   "module": "dist/crypto-urls.esm.js",
   "scripts": {
+    "test": "jest --config=jest.config.js",
     "build": "rollup -c",
     "start": "rollup -c -w",
     "clean": "rm -rf node_modules && npm i --verbose"
@@ -36,5 +37,19 @@
     "rollup": "2.45.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "rollup-plugin-terser": "7.0.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "verbose": true,
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "/src"
+    ]
   }
 }
