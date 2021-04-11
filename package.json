@@ -33,6 +33,7 @@
     "@rollup/plugin-node-resolve": "11.2.1",
     "babel-jest": "26.6.3",
     "jest": "26.6.3",
+    "url-parse": "^1.5.1",
     "query-string": "7.0.0",
     "rollup": "2.45.1",
     "rollup-plugin-peer-deps-external": "2.2.4",
@@ -51,5 +52,9 @@
       "node_modules",
       "/src"
     ]
+  },
+  "peerDependencies": {
+    "url-parse": "^1.5.1",
+    "query-string": "7.0.0"
   }
 }
