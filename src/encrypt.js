@@ -1,19 +1,30 @@
 const Url = require("url-parse");
 const CryptoJS = require("crypto-js");
 
-const encrypt = (givenUrl, options) => {
-  const { pattern } = options || {};
-  // mocked for initial test.
-  const parsedURL = Url(givenUrl);
-  const { pathname } = parsedURL;
-  console.log("parsedURL: ", parsedURL);
-  
-  const encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase").toString()
-  const decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase").toString(CryptoJS.enc.Utf8)
-  console.log("encrypted pathname: ", encrypted);
-  console.log("decrypted pathname: ", decrypted);
+const encrypt = (givenUrl, options = {} ) => {
+  const pattern  = options.pattern || null;
+  const secret = "Secret Passphrase"
+ 
+  if(pattern === null)
+    throw new Error('pattern is missing')
 
-  return "https://testapp.com/modules/provider/WTq8zYcZfaWVvMncigHqwQ==";
+  // extract pattern from the url
+  const parsedPatternURL = Url(pattern);
+  const parsedGivenURL = Url(givenUrl);
+
+  const patternPathnameArray = parsedPatternURL.pathname.split("/");
+  const givenURLPathnameArray = parsedGivenURL.pathname.split("/");
+
+  const filteredPatterns = patternPathnameArray.filter((param)=> param.indexOf(':') === 0);
+
+  filteredPatterns.map((p) => { 
+    let encryptedString = CryptoJS.AES.encrypt(givenURLPathnameArray[patternPathnameArray.indexOf(p)],secret).toString();
+    //to escape `/` (forward slash) from encryption
+    let escapedEncryptedString = encryptedString.replace(/\+/g,'p1L2u3S').replace(/\//g,'s1L2a3S4h').replace(/=/g,'e1Q2u3A4l');
+    givenURLPathnameArray[patternPathnameArray.indexOf(p)] = escapedEncryptedString
+  })
+
+  return `${parsedGivenURL.origin}${givenURLPathnameArray.join('/')}`
 };
 
 export { encrypt };
