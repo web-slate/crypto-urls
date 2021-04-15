@@ -1,6 +1,6 @@
 {
   "name": "crypto-urls",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "description": "Encrypt/Decrypt URL in you application",
   "main": "dist/crypto-urls.cjs.js",
   "module": "dist/crypto-urls.esm.js",
@@ -54,7 +54,7 @@
       "/src"
     ]
   },
-  "peerDependencies": {
+  "dependencies": {
     "crypto-js": "^4.0.0",
     "url-parse": "^1.5.1",
     "query-string": "7.0.0"
