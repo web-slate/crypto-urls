@@ -1,6 +1,6 @@
 import { babel } from '@rollup/plugin-babel'
 import external from 'rollup-plugin-peer-deps-external'
-import resolve from '@rollup/plugin-node-resolve'
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs'
 
 import pkg from './package.json'
@@ -14,6 +14,7 @@ export default {
       format: 'cjs',
       name: pkg.name,
       sourcemap: false,
+      preserveModules: true,
     },
     {
       exports: 'named',
@@ -28,7 +29,7 @@ export default {
     babel({
       babelHelpers: 'bundled'
     }),
-    resolve(),
+    nodeResolve(),
     commonjs()
   ],
 }
