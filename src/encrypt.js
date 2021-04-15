@@ -1,30 +1,58 @@
-const Url = require("url-parse");
-const CryptoJS = require("crypto-js");
+const Url = require('url-parse')
+const CryptoJS = require('crypto-js')
 
-const encrypt = (givenUrl, options = {} ) => {
-  const pattern  = options.pattern || null;
-  const secret = "Secret Passphrase"
- 
-  if(pattern === null)
-    throw new Error('pattern is missing')
+const encrypt = (function () {
+  const secret = 'Secret Passphrase'
+  return {
+    url: function (url, options = {}) {
+      const pattern = options.pattern || null
 
-  // extract pattern from the url
-  const parsedPatternURL = Url(pattern);
-  const parsedGivenURL = Url(givenUrl);
+      if (pattern === null) throw new Error('pattern is missing')
 
-  const patternPathChunks = parsedPatternURL.pathname.split("/");
-  const givenPathChunks = parsedGivenURL.pathname.split("/");
+      // extract pattern from the url
+      const parsedPatternURL = Url(pattern)
+      const parsedPath = Url(url)
 
-  const filteredPatterns = patternPathChunks.filter((param)=> param.indexOf(':') === 0);
+      const patternPathChunks = parsedPatternURL.pathname.split('/')
+      const givenPathChunks = parsedPath.pathname.split('/')
 
-  filteredPatterns.map((p) => { 
-    let encryptedString = CryptoJS.AES.encrypt(givenPathChunks[patternPathChunks.indexOf(p)],secret).toString();
-    //to escape `/` (forward slash) from encryption
-    let escapedEncryptedString = encryptedString.replace(/\+/g,'p1L2u3S').replace(/\//g,'s1L2a3S4h').replace(/=/g,'e1Q2u3A4l');
-    givenPathChunks[patternPathChunks.indexOf(p)] = escapedEncryptedString
-  })
+      const filteredPatterns = patternPathChunks.filter(
+        (param) => param.indexOf(':') === 0
+      )
 
-  return `${parsedGivenURL.origin}${givenPathChunks.join('/')}`
-};
+      filteredPatterns.map((p) => {
+        let encryptedString = CryptoJS.AES.encrypt(
+          givenPathChunks[patternPathChunks.indexOf(p)],
+          secret
+        ).toString()
+        //to escape `/` (forward slash) from encryption
+        let escapedEncryptedString = encryptedString
+          .replace(/\+/g, 'p1L2u3S')
+          .replace(/\//g, 's1L2a3S4h')
+          .replace(/=/g, 'e1Q2u3A4l')
+        givenPathChunks[patternPathChunks.indexOf(p)] = escapedEncryptedString
+      })
 
-export { encrypt };
+      return `${parsedPath.origin}${givenPathChunks.join('/')}`
+    },
+    path: function (pattern, options = {}) {
+      if (Object.keys(options).length === 0)
+        throw new Error('options is missing')
+
+      const patternPathChunks = pattern.split('/')
+
+      Object.entries(options).forEach(([k, v]) => {
+        let encryptedString = CryptoJS.AES.encrypt(v, secret).toString()
+        //to escape `/` (forward slash) from encryption
+        let escapedEncryptedString = encryptedString
+          .replace(/\+/g, 'p1L2u3S')
+          .replace(/\//g, 's1L2a3S4h')
+          .replace(/=/g, 'e1Q2u3A4l')
+        patternPathChunks[patternPathChunks.indexOf(k)] = escapedEncryptedString
+      })
+      return `${patternPathChunks.join('/')}`
+    },
+  }
+})()
+
+export { encrypt }

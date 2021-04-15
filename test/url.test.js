@@ -1,13 +1,13 @@
-const { encrypt, decrypt } = require('../src')
+const { encrypt,decrypt } = require('../src')
 
 describe('Success case: Crypto Url Encrypt and Decrypt with sequential pattern', () => {
   let actualUrl =
     'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/view/tasks'
   let patternUrl = 'https://testapp.com/modules/provider/:id/:action/tasks'
-  var encryptedUrl
-
-  test('encrypt', () => {
-    encryptedUrl = encrypt(actualUrl, {
+  var encryptedUrl;
+  
+  test('encrypt.url', () => {
+    encryptedUrl = encrypt.url(actualUrl, {
       pattern: patternUrl,
     })
   })
@@ -28,7 +28,7 @@ describe('Success case: Crypto Url Encrypt and Decrypt with mixed/non-sequential
   var encryptedUrl
 
   test('encrypt', () => {
-    encryptedUrl = encrypt(actualUrl, {
+    encryptedUrl = encrypt.url(actualUrl, {
       pattern: patternUrl,
     })
   })
@@ -45,7 +45,7 @@ describe('Success case: Crypto Url Encrypt and Decrypt with mixed/non-sequential
 describe('Failure case: Crypto Url Encrypt and Decrypt without pattern option', () => {
   test('encrypt', () => {
     expect(() =>
-      encrypt(
+      encrypt.url(
         'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/tasks/view'
       )
     ).toThrow('pattern is missing')
