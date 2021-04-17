@@ -35,7 +35,7 @@ let actualUrl =
   'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/view'
 let patternUrl = 'https://testapp.com/modules/provider/:id/:action'
 
-let encryptedUrl = encrypt(actualUrl, {
+let encryptedUrl = encrypt.url(actualUrl, {
   pattern: patternUrl,
 })
 console.log(encryptedUrl)
@@ -127,11 +127,14 @@ This method takes two parameters, `url` and `encryptedPath`
 
 - `pattern` of type _String_ the Path to be encrypted
 
-  For example: `/m/:id/:action`
+  For example: `/m/:id/xw:action`
 
 - `encryptedPath` of type _String_ 
 
-  For example: `/m/U2FsdGVkX1p1L2u3SR7Sufd4LxWbAVOcyFep1L2u3SS3tyeYxLTwMxEOwqZ58uGrMiSovHbvfo8qJlaF75up1L2u3S5s1L2a3S4hpZ6DMBV2m5s1L2a3S4hge1Q2u3A4le1Q2u3A4l/U2FsdGVkX18CRp1L2u3S4CViJayssQ6IdkFiR2HEsgCaNY7Poe1Q2u3A4l/`
+  For example: 
+  ```
+  /m/U2FsdGVkX1p1L2u3SR7Sufd4LxWbAVOcyFep1L2u3SS3tyeYxLTwMxEOwqZ58uGrMiSovHbvfo8qJlaF75up1L2u3S5s1L2a3S4hpZ6DMBV2m5s1L2a3S4hge1Q2u3A4le1Q2u3A4l/U2FsdGVkX18CRp1L2u3S4CViJayssQ6IdkFiR2HEsgCaNY7Poe1Q2u3A4l/
+  ```
 
 #### Sample code
 

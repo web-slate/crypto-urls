@@ -14,7 +14,6 @@ export default {
       format: 'cjs',
       name: pkg.name,
       sourcemap: false,
-      preserveModules: true,
     },
     {
       exports: 'named',
