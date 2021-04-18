@@ -1,13 +1,20 @@
 const Url = require('url-parse')
 const CryptoJS = require('crypto-js')
+const { isValidUrl, isValidPatternUrl } = require('../util')
 
 const encrypt = (function () {
   const secret = 'Secret Passphrase'
   return {
     url: function (url, options = {}) {
+      if (!url) throw new Error('url is missing')
+      
+      if (!isValidUrl(url)) throw new Error('invalid url')
+
       const pattern = options.pattern || null
 
       if (pattern === null) throw new Error('pattern is missing')
+
+      if (!isValidPatternUrl(pattern)) throw new Error('invalid pattern')
 
       // extract pattern from the url
       const parsedPatternURL = Url(pattern)
