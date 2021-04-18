@@ -127,7 +127,7 @@ This method takes two parameters, `url` and `encryptedPath`
 
 - `pattern` of type _String_ the Path to be encrypted
 
-  For example: `/m/:id/xw:action`
+  For example: `/m/:id/:action`
 
 - `encryptedPath` of type _String_ 
 
