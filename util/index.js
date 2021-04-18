@@ -1,1 +1,1 @@
-export { isValidUrl, isValidPatternUrl } from './util'
+export { isValidUrl, isValidPatternUrl, isValidPatterObject, isValidPattern } from './util'
