@@ -11,12 +11,28 @@ const isValidPatternUrl = (url) => {
   if (isValidUrl(url)) {
     const parsedURL = Url(url)
     const urlChunks = parsedURL.pathname.split('/')
-    const filteredPatterns = urlChunks.filter(
-      (param) => param.indexOf(':') === 0
-    )
+    const filteredPatterns = filterPatterns(urlChunks)
     return filteredPatterns.length > 0
   }
   return false
 }
 
-export { isValidUrl, isValidPatternUrl }
+const filterPatterns = (chunks) => {
+  return chunks.filter((param) => param.indexOf(':') === 0)
+}
+
+const isValidPatterObject = (obj) => {
+  let patternArray = []
+  const objKeys = Object.keys(obj)
+  objKeys.filter((i) => {
+    if (i.startsWith(':')) patternArray.push(i)
+  })
+  return patternArray.length === objKeys.length
+}
+
+const isValidPattern = (chunks) => {
+  let filteredPatterns = filterPatterns(chunks)
+  return filteredPatterns.length > 0
+}
+
+export { isValidUrl, isValidPatternUrl, isValidPatterObject, isValidPattern }
