@@ -29,7 +29,7 @@ describe('Failure case: Crypto Path Encrypt - With invalid pattern key', () => {
       encrypt.path(pattern, {
         ':id': '7d8bb2ff-04d8-4c3c-96c4-faafb6321432',
         ':action': 'view',
-        ssdg: 'sdgsd',
+        'ssdg': 'sdgsd',
       })
     }).toThrow('pattern object contains invalid key')
   })
@@ -44,5 +44,17 @@ describe('Failure case: Crypto Path Encrypt - With invalid pattern', () => {
         ':action': 'view',
       })
     }).toThrow('invalid pattern')
+  })
+})
+
+describe('Failure case: Crypto Path Encrypt path/pattern starts - Without /', () => {
+  let pattern = 'modules/provider/id/action/tasks'
+  test('encrypt.path', () => {
+    expect(() => {
+      encrypt.path(pattern, {
+        ':id': '7d8bb2ff-04d8-4c3c-96c4-faafb6321432',
+        ':action': 'view',
+      })
+    }).toThrow('pattern/path should start with /')
   })
 })
