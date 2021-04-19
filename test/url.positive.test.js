@@ -1,11 +1,11 @@
-const { encrypt,decrypt } = require('../src')
+const { encrypt, decrypt } = require('../src')
 
-describe('Success case: Crypto Url Encrypt and Decrypt with sequential pattern', () => {
+describe('Success case: Crypto Url Encrypt and Decrypt with sequential Pattern', () => {
   let actualUrl =
     'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/view/tasks'
   let patternUrl = 'https://testapp.com/modules/provider/:id/:action/tasks'
-  var encryptedUrl;
-  
+  var encryptedUrl
+
   test('encrypt.url', () => {
     encryptedUrl = encrypt.url(actualUrl, {
       pattern: patternUrl,
@@ -21,7 +21,7 @@ describe('Success case: Crypto Url Encrypt and Decrypt with sequential pattern',
   })
 })
 
-describe('Success case: Crypto Url Encrypt and Decrypt with mixed/non-sequential pattern', () => {
+describe('Success case: Crypto Url Encrypt and Decrypt with mixed/non-sequential Pattern', () => {
   let actualUrl =
     'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/tasks/view'
   let patternUrl = 'https://testapp.com/modules/provider/:id/tasks/:action'
@@ -39,23 +39,5 @@ describe('Success case: Crypto Url Encrypt and Decrypt with mixed/non-sequential
         pattern: patternUrl,
       })
     ).toEqual(actualUrl)
-  })
-})
-
-describe('Failure case: Crypto Url Encrypt and Decrypt without pattern option', () => {
-  test('encrypt', () => {
-    expect(() =>
-      encrypt.url(
-        'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/tasks/view'
-      )
-    ).toThrow('pattern is missing')
-  })
-
-  test('decrypt', () => {
-    expect(() =>
-      decrypt.url(
-        'https://testapp.com/modules/provider/7d8bb2ff-04d8-4c3c-96c4-faafb6321432/tasks/view'
-      )
-    ).toThrow('pattern is missing')
   })
 })

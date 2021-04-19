@@ -1,13 +1,20 @@
 const Url = require('url-parse')
 const CryptoJS = require('crypto-js')
+const { isValidUrl, isValidPatternUrl, isValidPattern } = require('../util')
 
 const decrypt = (function () {
   const secret = 'Secret Passphrase'
   return {
     url: function (givenUrl, options = {}) {
+      if (!givenUrl) throw new Error('url is missing')
+
+      if (!isValidUrl(givenUrl)) throw new Error('invalid url')
+
       const pattern = options.pattern || null
 
       if (pattern === null) throw new Error('pattern is missing')
+
+      if (!isValidPatternUrl(pattern)) throw new Error('invalid pattern')
 
       // extract pattern from the url
       const parsedPatternURL = Url(pattern)
@@ -37,8 +44,14 @@ const decrypt = (function () {
       return `${parsedGivenURL.origin}${givenURLPathnameArray.join('/')}`
     },
     path: function (pattern, encryptedPath) {
+      if (!pattern) throw new Error('pattern is missing')
+
+      if (!encryptedPath) throw new Error('encrypted path is missing')
+
       const patternPathChunks = pattern.split('/')
       const encryptedPathChunks = encryptedPath.split('/')
+
+      if (!isValidPattern(patternPathChunks)) throw new Error('invalid pattern')
 
       const filteredPatterns = patternPathChunks.filter(
         (param) => param.indexOf(':') === 0
