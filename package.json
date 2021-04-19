@@ -1,6 +1,6 @@
 {
   "name": "crypto-urls",
-  "version": "v2.2.10",
+  "version": "v2.3.0",
   "description": "Encrypt/Decrypt URL in you application",
   "main": "dist/crypto-urls.cjs.js",
   "module": "dist/crypto-urls.esm.js",
