@@ -30,9 +30,13 @@ const isValidPatterObject = (obj) => {
   return patternArray.length === objKeys.length
 }
 
+const isValidPath = (path) => {
+  return path.startsWith('/')
+}
+
 const isValidPattern = (chunks) => {
   let filteredPatterns = filterPatterns(chunks)
   return filteredPatterns.length > 0
 }
 
-export { isValidUrl, isValidPatternUrl, isValidPatterObject, isValidPattern }
+export { isValidUrl, isValidPatternUrl, isValidPatterObject, isValidPattern, isValidPath }
