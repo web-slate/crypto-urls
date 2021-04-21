@@ -1,9 +1,13 @@
 const Url = require('url-parse')
 const CryptoJS = require('crypto-js')
+const fs = require('fs')
 import { isUrl, isPatternUrl, isPattern, isPath } from '../util'
 
+const configData = fs.readFileSync(__dirname + '/config.json', 'utf8')
+const configObject = JSON.parse(configData)
+
 const decrypt = (function () {
-  const secret = 'Secret Passphrase'
+  const secret = configObject['secret']
   return {
     url: function (givenUrl, options = {}) {
       if (!givenUrl) throw new Error('url is missing')
