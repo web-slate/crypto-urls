@@ -1,20 +1,20 @@
 const Url = require('url-parse')
 const CryptoJS = require('crypto-js')
-import { isUrl, isPatternUrl, isPattern, isPath } from '../util'
+import { isUrl, isPatternUrl, isPattern, isPath, messages } from '../util'
 
 const decrypt = (function () {
   const secret = 'Secret Passphrase'
   return {
     url: function (givenUrl, options = {}) {
-      if (!givenUrl) throw new Error('url is missing')
+      if (!givenUrl) throw new Error(messages.MISSING_URL)
 
-      if (!isUrl(givenUrl)) throw new Error('invalid url')
+      if (!isUrl(givenUrl)) throw new Error(messages.INVALID_URL)
 
       const pattern = options.pattern || null
 
-      if (pattern === null) throw new Error('pattern is missing')
+      if (pattern === null) throw new Error(messages.MISSING_PATTERN)
 
-      if (!isPatternUrl(pattern)) throw new Error('invalid pattern')
+      if (!isPatternUrl(pattern)) throw new Error(messages.INVALID_PATTERN)
 
       // extract pattern from the url
       const parsedPatternURL = Url(pattern)
@@ -44,19 +44,19 @@ const decrypt = (function () {
       return `${parsedGivenURL.origin}${givenURLPathnameArray.join('/')}`
     },
     path: function (pattern, encryptedPath) {
-      if (!pattern) throw new Error('pattern is missing')
+      if (!pattern) throw new Error(messages.MISSING_PATTERN)
 
-      if (!isPath(pattern)) throw new Error('pattern/path should start with /')
+      if (!isPath(pattern)) throw new Error(messages.INCORRECT_PATH)
 
-      if (!encryptedPath) throw new Error('encrypted path is missing')
+      if (!encryptedPath) throw new Error(messages.MISSING_ENCRYPT_PATH)
 
       if (!isPath(encryptedPath))
-        throw new Error('pattern/path should start with /')
+        throw new Error(messages.INCORRECT_PATH)
 
       const patternPathChunks = pattern.split('/')
       const encryptedPathChunks = encryptedPath.split('/')
 
-      if (!isPattern(patternPathChunks)) throw new Error('invalid pattern')
+      if (!isPattern(patternPathChunks)) throw new Error(messages.INVALID_PATTERN)
 
       const filteredPatterns = patternPathChunks.filter(
         (param) => param.indexOf(':') === 0

@@ -1,20 +1,27 @@
 const Url = require('url-parse')
 const CryptoJS = require('crypto-js')
-import { isUrl, isPatternUrl, isPatterObject, isPattern, isPath } from '../util'
+import {
+  isUrl,
+  isPatternUrl,
+  isPatterObject,
+  isPattern,
+  isPath,
+  messages,
+} from '../util'
 
 const encrypt = (function () {
   const secret = 'Secret Passphrase'
   return {
     url: function (url, options = {}) {
-      if (!url) throw new Error('url is missing')
+      if (!url) throw new Error(messages.MISSING_URL)
 
-      if (!isUrl(url)) throw new Error('invalid url')
+      if (!isUrl(url)) throw new Error(messages.INVALID_URL)
 
       const pattern = options.pattern || null
 
-      if (pattern === null) throw new Error('pattern is missing')
+      if (pattern === null) throw new Error(messages.MISSING_PATTERN)
 
-      if (!isPatternUrl(pattern)) throw new Error('invalid pattern')
+      if (!isPatternUrl(pattern)) throw new Error(messages.INVALID_PATTERN)
 
       // extract pattern from the url
       const parsedPatternURL = Url(pattern)
@@ -43,19 +50,19 @@ const encrypt = (function () {
       return `${parsedPath.origin}${givenPathChunks.join('/')}`
     },
     path: function (pattern, options = {}) {
-      if (!pattern) throw new Error('pattern is missing')
+      if (!pattern) throw new Error(messages.MISSING_PATTERN)
 
-      if (!isPath(pattern)) throw new Error('pattern/path should start with /')
+      if (!isPath(pattern)) throw new Error(messages.INCORRECT_PATH)
 
       if (Object.keys(options).length === 0)
-        throw new Error('options is missing')
+        throw new Error(messages.MISSING_OPTIONS)
 
       if (!isPatterObject(options))
-        throw new Error('pattern object contains invalid key')
+        throw new Error(messages.INCORRECT_PATTERN_OBJECT)
 
       const patternPathChunks = pattern.split('/')
 
-      if (!isPattern(patternPathChunks)) throw new Error('invalid pattern')
+      if (!isPattern(patternPathChunks)) throw new Error(messages.INVALID_PATTERN)
 
       Object.entries(options).forEach(([k, v]) => {
         let encryptedString = CryptoJS.AES.encrypt(v, secret).toString()
