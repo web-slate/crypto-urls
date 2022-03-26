@@ -34,7 +34,7 @@
     "babel-jest": "26.6.3",
     "jest": "26.6.3",
     "url-parse": "1.5.1",
-    "crypto-js": "4.0.0",
+    "crypto-js": "4.1.1",
     "query-string": "7.0.0",
     "rollup": "2.47.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
